@@ -1,0 +1,423 @@
+{
+  "version": "1.0",
+  "metadata": {
+    "name": "Nutrition Requirement Calculator",
+    "reference": "US DRI - National Academies of Sciences, Engineering, and Medicine",
+    "last_updated": "2026-09-30",
+    "units_note": "µg = ???????? | mg = ???????? | g = ??? | RAE = ????? ?????? ?????? | DFE = ????? ????? ????? | NE = ????? ??????"
+  },
+  "activity_levels": {
+    "sedentary":    { "label": "??????? (???? ????)",             "multiplier": 1.2   },
+    "light":        { "label": "?????? ??? (?-? ??? ?? ????)",     "multiplier": 1.375 },
+    "moderate":     { "label": "?????? ????? (?-? ??? ?? ????)",   "multiplier": 1.55  },
+    "active":       { "label": "?????? ???? (?-? ??? ?? ????)",    "multiplier": 1.725 },
+    "very_active":  { "label": "?????? ????? ???? (??? ?????)",     "multiplier": 1.9   }
+  },
+  "macros": {
+    "protein_g_per_kg": {
+      "sedentary":   0.8,
+      "light":       1.0,
+      "moderate":    1.3,
+      "active":      1.6,
+      "very_active": 2.0
+    },
+    "fat_percent_of_calories": { "min": 20, "max": 35 },
+    "carb_percent_of_calories": { "min": 45, "max": 65 },
+    "fiber_g": {
+      "male":   { "under_51": 38, "over_51": 30 },
+      "female": { "under_51": 25, "over_51": 21 }
+    },
+    "water_liters": {
+      "male":   { "19+": 3.7 },
+      "female": { "19+": 2.7 }
+    },
+    "calories_per_gram": { "protein": 4, "carb": 4, "fat": 9 }
+  },
+  "nutrients": [
+    {
+      "id": "vitamin_a",
+      "name": "??????? A",
+      "category": "vitamin",
+      "unit": "µg RAE",
+      "dri": {
+        "male":   { "1-3": 300, "4-8": 400, "9-13": 600, "14-18": 900, "19-30": 900, "31-50": 900, "51-70": 900, "71+": 900 },
+        "female": { "1-3": 300, "4-8": 400, "9-13": 600, "14-18": 700, "19-30": 700, "31-50": 700, "51-70": 700, "71+": 700 },
+        "pregnancy": { "14-18": 750, "19-30": 770, "31-50": 770 },
+        "lactation": { "14-18": 1200, "19-30": 1300, "31-50": 1300 }
+      },
+      "ul": { "male": 3000, "female": 3000 },
+      "food_sources": [
+        { "name": "??? ?????? (????)",   "per_100g": 9442 },
+        { "name": "??? ?????? (????)",   "per_100g": 7391 },
+        { "name": "???? ???",            "per_100g": 835  },
+        { "name": "?????? ???",          "per_100g": 469  },
+        { "name": "??????? ?????",        "per_100g": 149  },
+        { "name": "??? ?????",           "per_100g": 46   }
+      ]
+    },
+    {
+      "id": "vitamin_c",
+      "name": "??????? C",
+      "category": "vitamin",
+      "unit": "mg",
+      "dri": {
+        "male":   { "1-3": 15, "4-8": 25, "9-13": 45, "14-18": 75, "19-30": 90, "31-50": 90, "51-70": 90, "71+": 90 },
+        "female": { "1-3": 15, "4-8": 25, "9-13": 45, "14-18": 65, "19-30": 75, "31-50": 75, "51-70": 75, "71+": 75 },
+        "pregnancy": { "14-18": 80, "19-30": 85, "31-50": 85 },
+        "lactation": { "14-18": 115, "19-30": 120, "31-50": 120 }
+      },
+      "ul": { "male": 2000, "female": 2000 },
+      "food_sources": [
+        { "name": "???? ??????? ???? ???", "per_100g": 140 },
+        { "name": "????",                 "per_100g": 94  },
+        { "name": "??????",               "per_100g": 53  },
+        { "name": "?????????",            "per_100g": 59  },
+        { "name": "??? ?????? ???",        "per_100g": 89  }
+      ]
+    },
+    {
+      "id": "vitamin_d",
+      "name": "??????? D",
+      "category": "vitamin",
+      "unit": "µg",
+      "dri": {
+        "male":   { "1-70": 15, "71+": 20 },
+        "female": { "1-70": 15, "71+": 20 },
+        "pregnancy": { "14+": 15 },
+        "lactation": { "14+": 15 }
+      },
+      "ul": { "male": 100, "female": 100 },
+      "food_sources": [
+        { "name": "???? ?????? ???? (????)", "per_100g": 13.1 },
+        { "name": "???? ??????? (????)",     "per_100g": 13.0 },
+        { "name": "???? ?????? ??????",      "per_100g": 4.8  },
+        { "name": "??????? (????)",          "per_100g": 5.4  },
+        { "name": "??? ???????",            "per_100g": 1.3  },
+        { "name": "???? (?? ???? UV)",       "per_100g": 3.1  }
+      ]
+    },
+    {
+      "id": "vitamin_e",
+      "name": "??????? E",
+      "category": "vitamin",
+      "unit": "mg",
+      "dri": {
+        "male":   { "1-3": 6, "4-8": 7, "9-13": 11, "14+": 15 },
+        "female": { "1-3": 6, "4-8": 7, "9-13": 11, "14+": 15 },
+        "pregnancy": { "14+": 15 },
+        "lactation": { "14+": 19 }
+      },
+      "ul": { "male": 1000, "female": 1000 },
+      "food_sources": [
+        { "name": "???? ???? ?????",       "per_100g": 149 },
+        { "name": "?????",                 "per_100g": 25.6 },
+        { "name": "???? ??????????",        "per_100g": 35.2 },
+        { "name": "????",                  "per_100g": 15.0 },
+        { "name": "?????? ????",            "per_100g": 2.1  }
+      ]
+    },
+    {
+      "id": "vitamin_k",
+      "name": "??????? K",
+      "category": "vitamin",
+      "unit": "µg",
+      "dri": {
+        "male":   { "19+": 120 },
+        "female": { "19+": 90  },
+        "pregnancy": { "14+": 90 },
+        "lactation": { "14+": 90 }
+      },
+      "ul": { "male": null, "female": null, "note": "UL ????? ????" },
+      "food_sources": [
+        { "name": "??? ??? ????",   "per_100g": 817 },
+        { "name": "?????? ???",     "per_100g": 483 },
+        { "name": "??? ?????? ????","per_100g": 141 },
+        { "name": "????? ????",     "per_100g": 1640 },
+        { "name": "?????",          "per_100g": 1.4 }
+      ]
+    },
+    {
+      "id": "vitamin_b1",
+      "name": "??????? B1 (??????)",
+      "category": "vitamin",
+      "unit": "mg",
+      "dri": {
+        "male":   { "14+": 1.2 },
+        "female": { "14+": 1.1 },
+        "pregnancy": { "14+": 1.4 },
+        "lactation": { "14+": 1.4 }
+      },
+      "ul": { "male": null, "female": null, "note": "UL ????? ????" },
+      "food_sources": [
+        { "name": "???? ??????????", "per_100g": 1.48 },
+        { "name": "????? ????",       "per_100g": 0.9  },
+        { "name": "???",             "per_100g": 0.87 },
+        { "name": "???? ???",        "per_100g": 0.88 },
+        { "name": "???? ???????",    "per_100g": 0.4  }
+      ]
+    },
+    {
+      "id": "vitamin_b2",
+      "name": "??????? B2 (??????????)",
+      "category": "vitamin",
+      "unit": "mg",
+      "dri": {
+        "male":   { "14+": 1.3 },
+        "female": { "14+": 1.1 },
+        "pregnancy": { "14+": 1.4 },
+        "lactation": { "14+": 1.6 }
+      },
+      "ul": { "male": null, "female": null, "note": "UL ????? ????" },
+      "food_sources": [
+        { "name": "??? ??????",   "per_100g": 3.5 },
+        { "name": "???",          "per_100g": 0.18 },
+        { "name": "?????",        "per_100g": 1.14 },
+        { "name": "???????",      "per_100g": 0.46 },
+        { "name": "????",         "per_100g": 0.4 }
+      ]
+    },
+    {
+      "id": "vitamin_b3",
+      "name": "??????? B3 (??????)",
+      "category": "vitamin",
+      "unit": "mg NE",
+      "dri": {
+        "male":   { "14+": 16 },
+        "female": { "14+": 14 },
+        "pregnancy": { "14+": 18 },
+        "lactation": { "14+": 17 }
+      },
+      "ul": { "male": 35, "female": 35 },
+      "food_sources": [
+        { "name": "???? ??? ????",   "per_100g": 13.7 },
+        { "name": "???? ?? ??????",   "per_100g": 10.1 },
+        { "name": "??? ??????",      "per_100g": 11.9 },
+        { "name": "???????????",     "per_100g": 12.1 },
+        { "name": "????",            "per_100g": 3.6  }
+      ]
+    },
+    {
+      "id": "vitamin_b6",
+      "name": "??????? B6",
+      "category": "vitamin",
+      "unit": "mg",
+      "dri": {
+        "male":   { "14-50": 1.3, "51+": 1.7 },
+        "female": { "14-50": 1.3, "51+": 1.5 },
+        "pregnancy": { "14+": 1.9 },
+        "lactation": { "14+": 2.0 }
+      },
+      "ul": { "male": 100, "female": 100 },
+      "food_sources": [
+        { "name": "????",            "per_100g": 1.1 },
+        { "name": "???? ??????",     "per_100g": 0.6 },
+        { "name": "???? ???",        "per_100g": 0.6 },
+        { "name": "???",             "per_100g": 0.4 },
+        { "name": "????????? ????", "per_100g": 0.3 }
+      ]
+    },
+    {
+      "id": "vitamin_b9",
+      "name": "??????? B9 (?????)",
+      "category": "vitamin",
+      "unit": "µg DFE",
+      "dri": {
+        "male":   { "14+": 400 },
+        "female": { "14+": 400 },
+        "pregnancy": { "14+": 600 },
+        "lactation": { "14+": 500 }
+      },
+      "ul": { "male": 1000, "female": 1000 },
+      "food_sources": [
+        { "name": "??? ????",        "per_100g": 181 },
+        { "name": "????? ???? ????", "per_100g": 149 },
+        { "name": "?????? ???",      "per_100g": 194 },
+        { "name": "???????",         "per_100g": 149 },
+        { "name": "???????",         "per_100g": 81  }
+      ]
+    },
+    {
+      "id": "vitamin_b12",
+      "name": "??????? B12",
+      "category": "vitamin",
+      "unit": "µg",
+      "dri": {
+        "male":   { "14+": 2.4 },
+        "female": { "14+": 2.4 },
+        "pregnancy": { "14+": 2.6 },
+        "lactation": { "14+": 2.8 }
+      },
+      "ul": { "male": null, "female": null, "note": "UL ????? ????" },
+      "food_sources": [
+        { "name": "??? ??????",       "per_100g": 59.3 },
+        { "name": "???? ??????",      "per_100g": 8.9  },
+        { "name": "???? ???",         "per_100g": 1.5  },
+        { "name": "???????",          "per_100g": 1.1  },
+        { "name": "???",              "per_100g": 0.45 }
+      ]
+    },
+    {
+      "id": "calcium",
+      "name": "?????",
+      "category": "mineral",
+      "unit": "mg",
+      "dri": {
+        "male":   { "9-18": 1300, "19-50": 1000, "51-70": 1000, "71+": 1200 },
+        "female": { "9-18": 1300, "19-50": 1000, "51-70": 1200, "71+": 1200 },
+        "pregnancy": { "14-18": 1300, "19+": 1000 },
+        "lactation": { "14-18": 1300, "19+": 1000 }
+      },
+      "ul": { "male": 2500, "female": 2500 },
+      "food_sources": [
+        { "name": "???? ???????",     "per_100g": 1165 },
+        { "name": "???? ????",        "per_100g": 721  },
+        { "name": "???? ????",        "per_100g": 121  },
+        { "name": "???",              "per_100g": 125  },
+        { "name": "?????",            "per_100g": 240  },
+        { "name": "??? ??????",       "per_100g": 47   }
+      ]
+    },
+    {
+      "id": "iron",
+      "name": "???",
+      "category": "mineral",
+      "unit": "mg",
+      "dri": {
+        "male":   { "9-13": 8, "14+": 8 },
+        "female": { "9-13": 8, "14-18": 15, "19-50": 18, "51+": 8 },
+        "pregnancy": { "14+": 27 },
+        "lactation": { "14-18": 10, "19+": 9 }
+      },
+      "ul": { "male": 45, "female": 45 },
+      "food_sources": [
+        { "name": "??? ??????",       "per_100g": 11.0 },
+        { "name": "??? ???? ???",     "per_100g": 9.1  },
+        { "name": "????? ???? ????",  "per_100g": 4.5  },
+        { "name": "???? ??? ??????",  "per_100g": 2.7  },
+        { "name": "?????? ????",      "per_100g": 3.6  },
+        { "name": "???? ???",         "per_100g": 8.8  }
+      ]
+    },
+    {
+      "id": "magnesium",
+      "name": "??????",
+      "category": "mineral",
+      "unit": "mg",
+      "dri": {
+        "male":   { "14-18": 410, "19-30": 400, "31+": 420 },
+        "female": { "14-18": 360, "19-30": 310, "31+": 320 },
+        "pregnancy": { "14-18": 400, "19-30": 350, "31+": 360 },
+        "lactation": { "14-18": 360, "19-30": 310, "31+": 320 }
+      },
+      "ul": { "male": 350, "female": 350, "note": "??? ?? ????" },
+      "food_sources": [
+        { "name": "???? ???",       "per_100g": 535 },
+        { "name": "???? ????",      "per_100g": 392 },
+        { "name": "?????",          "per_100g": 258 },
+        { "name": "?????? ????",    "per_100g": 87  },
+        { "name": "????? ??? ??%",  "per_100g": 228 }
+      ]
+    },
+    {
+      "id": "zinc",
+      "name": "??? (????)",
+      "category": "mineral",
+      "unit": "mg",
+      "dri": {
+        "male":   { "14+": 11 },
+        "female": { "14+": 8  },
+        "pregnancy": { "14-18": 12, "19+": 11 },
+        "lactation": { "14-18": 13, "19+": 12 }
+      },
+      "ul": { "male": 40, "female": 40 },
+      "food_sources": [
+        { "name": "???? ???",        "per_100g": 4.8 },
+        { "name": "???? ???",        "per_100g": 7.8 },
+        { "name": "??? ????",        "per_100g": 1.3 },
+        { "name": "????",            "per_100g": 1.5 },
+        { "name": "?????",           "per_100g": 3.1 },
+        { "name": "????",            "per_100g": 0.6 }
+      ]
+    },
+    {
+      "id": "potassium",
+      "name": "??????",
+      "category": "mineral",
+      "unit": "mg",
+      "dri": {
+        "male":   { "14+": 3400 },
+        "female": { "14+": 2600 },
+        "pregnancy": { "14+": 2900 },
+        "lactation": { "14+": 2800 }
+      },
+      "ul": { "male": null, "female": null, "note": "UL ?? ????? ????? ????? ????" },
+      "food_sources": [
+        { "name": "????????? ????",   "per_100g": 379 },
+        { "name": "????? ???? ????",  "per_100g": 561 },
+        { "name": "???",              "per_100g": 358 },
+        { "name": "???????",          "per_100g": 485 },
+        { "name": "?????? ????",      "per_100g": 466 }
+      ]
+    },
+    {
+      "id": "phosphorus",
+      "name": "????",
+      "category": "mineral",
+      "unit": "mg",
+      "dri": {
+        "male":   { "9-18": 1250, "19+": 700 },
+        "female": { "9-18": 1250, "19+": 700 },
+        "pregnancy": { "14+": 700 },
+        "lactation": { "14+": 700 }
+      },
+      "ul": { "male": 4000, "female": 4000 },
+      "food_sources": [
+        { "name": "???? ???????",  "per_100g": 807 },
+        { "name": "???? ???",     "per_100g": 198 },
+        { "name": "??? ????",     "per_100g": 180 },
+        { "name": "???????",       "per_100g": 198 },
+        { "name": "?????",        "per_100g": 481 }
+      ]
+    },
+    {
+      "id": "iodine",
+      "name": "??",
+      "category": "mineral",
+      "unit": "µg",
+      "dri": {
+        "male":   { "14+": 150 },
+        "female": { "14+": 150 },
+        "pregnancy": { "14+": 220 },
+        "lactation": { "14+": 290 }
+      },
+      "ul": { "male": 1100, "female": 1100 },
+      "food_sources": [
+        { "name": "??? ????? (? ???)",  "per_100g": 2500 },
+        { "name": "???? ???",           "per_100g": 99   },
+        { "name": "???? ??????",        "per_100g": 2000 },
+        { "name": "???????",            "per_100g": 24   },
+        { "name": "???",                "per_100g": 13   }
+      ]
+    },
+    {
+      "id": "selenium",
+      "name": "??????",
+      "category": "mineral",
+      "unit": "µg",
+      "dri": {
+        "male":   { "14+": 55 },
+        "female": { "14+": 55 },
+        "pregnancy": { "14+": 60 },
+        "lactation": { "14+": 70 }
+      },
+      "ul": { "male": 400, "female": 400 },
+      "food_sources": [
+        { "name": "???? ??????",      "per_100g": 1917 },
+        { "name": "???? ?? ??????",   "per_100g": 80.4 },
+        { "name": "???????",           "per_100g": 30.7 },
+        { "name": "???? ??????????",  "per_100g": 53   },
+        { "name": "???? ???",         "per_100g": 24   }
+      ]
+    }
+  ]
+}
