@@ -1,0 +1,7 @@
+*.pyc
+__pycache__/
+.env
+users.json
+user_data.json
+nohup.out
+*.log
